@@ -1,8 +1,7 @@
-"""
-URL configuration for myproject project.
+"""myproject URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.2/topics/http/urls/
+    https://docs.djangoproject.com/en/4.1/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -17,7 +16,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from . import views
+
+
+# IMPORTANTE PARA MEDIA FILES IMAGE FIELD
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path("", include("autenticacion.urls"))
+    path("", views.index_view, name="index_page"),
+    path("register", views.register_page, name='register_page'),
+    path("login", views.login_page, name='login_page'),
+    path("logout", views.logout_view, name='logout'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
