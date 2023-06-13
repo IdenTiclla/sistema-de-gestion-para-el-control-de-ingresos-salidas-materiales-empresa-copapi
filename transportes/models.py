@@ -41,4 +41,4 @@ class Transporte(models.Model):
         db_table = "Transporte"
 
     def __str__(self) -> str:
-        return f"<{self.chofer.nombre} - {self.vehiculo.tipo} - {self.fecha_creacion}>"
+        return f"<{self.chofer.nombre} - {self.vehiculo.tipo} - {self.vehiculo.placa} - {self.fecha_creacion}>"

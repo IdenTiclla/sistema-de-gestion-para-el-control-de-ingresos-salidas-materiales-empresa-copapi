@@ -4,9 +4,6 @@ from transportes.models import Transporte
 
 # Create your models here.
 
-
-# parte de abajo del modelo Deposito - DepositoMaterial - Material
-
 class Deposito(models.Model):
     nombre = models.CharField(max_length=50)
     ubicacion = models.CharField(max_length=50)
@@ -43,6 +40,7 @@ class DepositoMaterial(models.Model):
 
     class Meta:
         db_table = "DepositoMaterial"
+        unique_together = ('deposito', 'material') # no permitira ingresar el mismo material en el mismo deposit
 
     def __str__(self) -> str:
         return f"<{self.deposito.nombre} - {self.material.nombre} - {self.cantidad}>"
