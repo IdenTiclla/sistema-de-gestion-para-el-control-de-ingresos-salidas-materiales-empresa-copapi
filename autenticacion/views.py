@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from .models import User
+from .models import Administrador, Encargado
 
 # para los mensajes
 from django.contrib import messages
@@ -34,11 +34,11 @@ def register_page(request):
         print(request.POST)
         first_name = request.POST['firstName']
         last_name = request.POST['lastName']
-
         ci = request.POST['ci']
         telefono = request.POST['telefono']
-        rol = request.POST['rol']
         email = request.POST['email']
+        domicilio = request.POST['domicilio']
+
         
         username = request.POST['username']
         password = request.POST['password']
@@ -47,23 +47,39 @@ def register_page(request):
         if password != password_again:
             return HttpResponse("Las contraseñas no coinciden...")
         
-        new_user = User.objects.create_user(
-            first_name=first_name,
-            last_name=last_name,
-            ci=ci,
-            telefono=telefono,
-            rol=rol,
-            email=email,
-            username=username,
-            password=password
-        )
+        rol = request.POST['rol']
+
+        if rol == 'Administrador':
+            new_user = Administrador.objects.create_user(
+                first_name=first_name,
+                last_name=last_name,
+                ci=ci,
+                telefono=telefono,
+                email=email,
+                username=username,
+                password=password,
+                domicilio=domicilio
+            )
+
+        elif rol == 'Encargado':
+            new_user = Encargado.objects.create_user(
+                first_name=first_name,
+                last_name=last_name,
+                ci=ci,
+                telefono=telefono,
+                email=email,
+                username=username,
+                password=password,
+                domicilio=domicilio
+
+            )
 
         if rol == "Administrador":
             new_user.is_superuser = True
-            new_user.is_staff = False
+            new_user.is_staff = True
 
         new_user.save()
-
+        messages.add_message(request=request, level=messages.SUCCESS, message="Usuario creado correctamente!")
         return render(request, "login.html")
 
 
@@ -75,13 +91,17 @@ def login_page(request):
     elif request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
-        user = authenticate(username=username, password=password)
+
+        user = authenticate(request, username=username, password=password)
+        
         if user is not None:
+            # Autenticación exitosa
             login(request, user)
             return redirect('index_page')
         else:
-            messages.add_message(request=request, level=messages.SUCCESS, message="Credenciales incorrectas!")
-            return redirect('/login')
+            # Credenciales incorrectas
+            messages.error(request, "Credenciales incorrectas")
+            return redirect('login_page')
         
 
 def logout_view(request):

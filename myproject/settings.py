@@ -151,8 +151,21 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 
+# auth backends
+
+AUTHENTICATION_BACKENDS = [
+    'autenticacion.backends.AdministradorBackend',
+    'autenticacion.backends.EncargadoBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+
 # IMPORTANTE AUTH
-AUTH_USER_MODEL = 'autenticacion.User'
+# AUTH_USER_MODEL = 'autenticacion.Administrador'
+# AUTH_USER_MODEL = 'autenticacion.Encargado'
+
+# AUTH_ENCARGADO_MODEL = 'autenticacion.Encargado'
+
 
 
 # IMPORTANTE PARA LA REDIRECCION LOGIN REQUIRED

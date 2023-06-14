@@ -22,6 +22,19 @@
       Registrarse
     </h1>
 
+    <div class="form-group">
+      <label>Tipo de usuario</label>
+      <select
+        class="form-select"
+        aria-label="Default select example"
+        name="rol"
+      >
+        <option value="Encargado">Encargado</option>
+        <option value="Administrador">Administrador</option>
+
+      </select>
+    </div>
+
     <input
       type="text"
       id="firstName"
@@ -54,16 +67,7 @@
       placeholder="Telefono"
     />
 
-    <div class="form-group">
-      <label>Tipo de usuario</label>
-      <select
-        class="form-select"
-        aria-label="Default select example"
-        name="rol"
-      >
-        <option value="Encargado">Encargado</option>
-      </select>
-    </div>
+    
 
     <input
       type="email"
@@ -71,6 +75,14 @@
       name="email"
       class="form-control"
       placeholder="Correo Electronico"
+    />
+
+    <input
+      type="text"
+      id="domicilio"
+      name="domicilio"
+      class="form-control"
+      placeholder="Domicilio"
     />
 
     <input

@@ -1,3 +1,4 @@
+{% load custom_filters %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="{% url 'index_page' %}">COPAPI S.A 🚰</a>
   <button
@@ -18,7 +19,7 @@
       </li>
 
       {% if request.user.rol == 'Sistemas' %}
-      
+
       <li class="nav-item">
         <a class="nav-link" href="/departamentos">Gestionar Departamentos</a>
       </li>
@@ -31,78 +32,100 @@
         <a class="nav-link" href="/tecnicos">Tecnicos</a>
       </li>
 
-
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Solicitudes
-        </a>
-        <ul class="dropdown-menu">
-
-          <li><a class="dropdown-item" href="/realizar_solicitud">Realizar Solicitud</a></li>
-
-          <li><a class="dropdown-item" href="/solicitudes_realizadas">Solicitudes Realizadas</a></li>
-
-          <li><a class="dropdown-item" href="/solicitudes_en_progreso">Solicitudes En progreso</a></li>
-
-          <li><a class="dropdown-item" href="/solicitudes_pendiente_aprobacion">Solicitudes pendiente aprobacion</a></li>
-
-          <li><a class="dropdown-item" href="/solicitudes_aprobadas">Solicitudes aprobadas</a></li>
-        </ul>
-      </li>
-
-      {% endif %}
-
-
-      {% if request.user.rol == 'Soporte' %}
-      <li class="nav-item">
-        <a class="nav-link" href="/repuestos">Gestionar Repuestos</a>
-      </li>
-
-
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Solicitudes
-        </a>
-        <ul class="dropdown-menu">
-          
-
-          <li><a class="dropdown-item" href="/solicitudes_realizadas">Solicitudes Realizadas</a></li>
-
-          <li><a class="dropdown-item" href="/solicitudes_en_progreso">Solicitudes En progreso</a></li>
-
-          <li><a class="dropdown-item" href="/solicitudes_pendiente_aprobacion">Solicitudes pendiente aprobacion</a></li>
-
-          <li><a class="dropdown-item" href="/solicitudes_aprobadas">Solicitudes aprobadas</a></li>
-        </ul>
-      </li>
-      {% endif %}
-
-
-      {% if request.user.rol == 'JefeSoporte' %}
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Solicitudes
-        </a>
-        <ul class="dropdown-menu">
-          
-
-          <li><a class="dropdown-item" href="/solicitudes_realizadas">Solicitudes Realizadas</a></li>
-
-          <li><a class="dropdown-item" href="/solicitudes_en_progreso">Solicitudes En progreso</a></li>
-
-          <li><a class="dropdown-item" href="/solicitudes_pendiente_aprobacion">Solicitudes pendiente aprobacion</a></li>
-
-          <li><a class="dropdown-item" href="/solicitudes_aprobadas">Solicitudes aprobadas</a></li>
-        </ul>
-      </li>
-      {% endif %}
-
-      
-
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'logout' %}"
-          >({{ request.user.first_name }} - {{request.user.rol}})Logout</a
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
         >
+          Solicitudes
+        </a>
+        <ul class="dropdown-menu">
+          <li>
+            <a class="dropdown-item" href="/realizar_solicitud"
+              >Realizar Solicitud</a
+            >
+          </li>
+
+          <li>
+            <a class="dropdown-item" href="/solicitudes_realizadas"
+              >Solicitudes Realizadas</a
+            >
+          </li>
+
+          <li>
+            <a class="dropdown-item" href="/solicitudes_en_progreso"
+              >Solicitudes En progreso</a
+            >
+          </li>
+
+          <li>
+            <a class="dropdown-item" href="/solicitudes_pendiente_aprobacion"
+              >Solicitudes pendiente aprobacion</a
+            >
+          </li>
+
+          <li>
+            <a class="dropdown-item" href="/solicitudes_aprobadas"
+              >Solicitudes aprobadas</a
+            >
+          </li>
+        </ul>
+      </li>
+
+      {% endif %} {% if request.user.rol == 'JefeSoporte' %}
+      <li class="nav-item dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          Solicitudes
+        </a>
+        <ul class="dropdown-menu">
+          <li>
+            <a class="dropdown-item" href="/solicitudes_realizadas"
+              >Solicitudes Realizadas</a
+            >
+          </li>
+
+          <li>
+            <a class="dropdown-item" href="/solicitudes_en_progreso"
+              >Solicitudes En progreso</a
+            >
+          </li>
+
+          <li>
+            <a class="dropdown-item" href="/solicitudes_pendiente_aprobacion"
+              >Solicitudes pendiente aprobacion</a
+            >
+          </li>
+
+          <li>
+            <a class="dropdown-item" href="/solicitudes_aprobadas"
+              >Solicitudes aprobadas</a
+            >
+          </li>
+        </ul>
+      </li>
+      {% endif %}
+
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'logout' %}">
+          <!-- {{ request.user|get_type }} -->
+          {% if request.user.is_admin %}
+            Bienvenido, Administrador: {{request.user.first_name}}
+          {% elif request.user.is_encargado %}
+            Bienvenido, Encargado: {{request.user.first_name}}
+          {% else %}
+            Bienvenido
+          {% endif %}
+          Logout
+        </a>
       </li>
     </ul>
   </div>

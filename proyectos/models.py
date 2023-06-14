@@ -1,4 +1,5 @@
 from django.db import models
+from autenticacion.models import Encargado
 # Create your models here.
 
 
@@ -16,25 +17,6 @@ class TipoServicio(models.Model):
     def __str__(self) -> str:
         return f"<{self.nombre} - {self.descripcion}>"
 
-
-class Encargado(models.Model):
-    nombre = models.CharField(max_length=50)
-    apellido_paterno = models.CharField(max_length=50)
-    apellido_materno = models.CharField(max_length=50)
-    ci = models.CharField(max_length=50)
-    telefono = models.CharField(max_length=50)
-    domicilio = models.CharField(max_length=50)
-
-
-    fecha_creacion = models.DateField(auto_now=True)
-
-    
-
-    class Meta:
-        db_table = "Encargado"
-
-    def __str__(self) -> str:
-        return f"<{self.nombre} - {self.apellido_paterno} - {self.apellido_materno}>"
     
 class Barrio(models.Model):
     nombre = models.CharField(max_length=50)
