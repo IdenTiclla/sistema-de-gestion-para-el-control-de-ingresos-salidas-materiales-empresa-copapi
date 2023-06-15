@@ -1,1 +1,12 @@
+# Archivos y carpetas generados por Django
+db.sqlite3
 __pycache__/
+*.pyc
+
+# Archivos y carpetas específicos de entornos virtuales
+venv/
+env/
+
+# Archivos y carpetas específicos de Visual Studio Code
+.vscode/
+*.code-workspace
