@@ -1,0 +1,74 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<h1>Depositos</h1>
+<div class="row">
+  <div class="col-md-5">
+    <form action="/depositos" method="post">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nombre"
+          name="nombre"
+          placeholder="Ingrese el nombre"
+        />
+      </div>
+
+
+      <div class="form-group">
+        <label for="ubicacion">Ubicacion</label>
+        <input
+          type="text"
+          class="form-control"
+          id="ubicacion"
+          name="ubicacion"
+          placeholder="Ingrese la ubicacion"
+        />
+      </div>
+
+      
+
+
+      
+
+      <button type="submit">Registrar Deposito</button>
+    </form>
+  </div>
+  <div class="col-md-7">
+    {% if depositos|length > 0 %}
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Ubicacion</th>
+                <th scope="col">Acciones</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              {% for deposito in depositos %}
+              <tr>
+                  <th scope="row">{{deposito.id}}</th>
+                  <td>{{deposito.nombre}}</td>
+                  <td>{{deposito.ubicacion}}</td>
+                  <td>
+                    <a href="/depositos/update/{{deposito.id}}" class="btn btn-success">Actualizar</a>
+                    <a href="/depositos/delete/{{deposito.id}}" class="btn btn-danger confirmation">Eliminar</a>
+                  </td>
+
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+    {% else%}
+        <h1>No hay Depositos creados!</h1>
+    {% endif %}
+    
+  </div>
+</div>
+{% endblock %}

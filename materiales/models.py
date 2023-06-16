@@ -18,6 +18,10 @@ class Deposito(models.Model):
     def __str__(self) -> str:
         return f"<{self.nombre} - {self.ubicacion}>"
     
+    def agregar_material(self, material):
+        deposito_material = DepositoMaterial.objects.filter(deposito=self, material=material)
+        if deposito_material:
+            print("ya existe el material en ese deposito")
 
 class Material(models.Model):
     nombre = models.CharField(max_length=50)
