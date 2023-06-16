@@ -1,0 +1,73 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<h1>Barrios</h1>
+<div class="row">
+  <div class="col-md-5">
+    <form action="/barrios" method="post">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nombre"
+          name="nombre"
+          placeholder="Ingrese el nombre"
+        />
+      </div>
+
+
+      <div class="form-group">
+        <label for="ubicacion">Ubicacion</label>
+        <input
+          type="text"
+          class="form-control"
+          id="ubicacion"
+          name="ubicacion"
+          placeholder="Ingrese el la ubicacion"
+        />
+      </div>
+
+      
+
+
+      
+
+      <button type="submit">Registrar Barrio</button>
+    </form>
+  </div>
+  <div class="col-md-7">
+    {% if barrios|length > 0 %}
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Ubicacion</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for barrio in barrios %}
+              <tr>
+                  <th scope="row">{{barrio.id}}</th>
+                  <td>{{barrio.nombre}}</td>
+                  <td>{{barrio.ubicacion}}</td>
+                  <td>
+                    <a href="/barrios/update/{{barrio.id}}" class="btn btn-success">Actualizar</a>
+                    <a href="/barrios/delete/{{barrio.id}}" class="btn btn-danger confirmation">Eliminar</a>
+                  </td>
+
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+    {% else%}
+        <h1>No hay Barrios creados!</h1>
+    {% endif %}
+    
+  </div>
+</div>
+{% endblock %}

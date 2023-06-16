@@ -36,7 +36,7 @@ class Proyecto(models.Model):
     nombre = models.CharField(max_length=50)
 
     tipo = models.ForeignKey(TipoServicio, on_delete=models.CASCADE)
-    encargado = models.OneToOneField(Encargado, on_delete=models.CASCADE)
+    encargado = models.ForeignKey(Encargado, on_delete=models.CASCADE)
     barrio = models.ForeignKey(Barrio, on_delete=models.CASCADE)
 
     fecha_creacion = models.DateField(auto_now=True)
@@ -47,4 +47,4 @@ class Proyecto(models.Model):
         db_table = "Proyecto"
 
     def __str__(self) -> str:
-        return f"<{self.nombre} - {self.tipo.nombre} - {self.encargado.nombre} - {self.barrio.nombre}>"
+        return f"<{self.nombre} - {self.tipo.nombre} - {self.encargado.first_name} - {self.barrio.nombre}>"

@@ -1,0 +1,26 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<h1>Informacion del Proyecto: {{proyecto.nombre}}</h1>
+<br>
+<h2>Barrio: {{proyecto.barrio.nombre}}</h2>
+
+<br>
+<h2>Encargado: {{proyecto.encargado.first_name}} {{proyecto.encargado.last_name}}</h2>
+
+<br>
+<h3>Tipo Servicio: {{proyecto.tipo.nombre}}</h3>
+
+<br>
+
+
+<h5>Creacion del proyecto: {{proyecto.fecha_creacion}}</h5>
+
+<br>
+<h4>Estado</h4>
+<p>{{solicitud.estado}}</p>
+
+<!-- Aqui podemos jugar con las condicionales para renderizar algo segun el usuario -->
+
+
+{% endblock %}
