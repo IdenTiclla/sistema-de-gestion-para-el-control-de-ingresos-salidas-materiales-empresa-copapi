@@ -23,6 +23,8 @@ urlpatterns = [
     path("", include("autenticacion.urls")),
     # 
     path("", include("proyectos.urls")),
+    path("", include("materiales.urls")),
+
 
 
 ]

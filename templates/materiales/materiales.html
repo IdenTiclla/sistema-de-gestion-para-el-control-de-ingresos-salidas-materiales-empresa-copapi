@@ -1,0 +1,74 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<h1>Materiales</h1>
+<div class="row">
+  <div class="col-md-5">
+    <form action="/materiales" method="post">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nombre"
+          name="nombre"
+          placeholder="Ingrese el nombre"
+        />
+      </div>
+
+
+      <div class="form-group">
+        <label for="descripcion">Descripcion</label>
+        <input
+          type="text"
+          class="form-control"
+          id="descripcion"
+          name="descripcion"
+          placeholder="Ingrese la descripcion"
+        />
+      </div>
+
+      
+
+
+      
+
+      <button type="submit">Registrar Material</button>
+    </form>
+  </div>
+  <div class="col-md-7">
+    {% if materiales|length > 0 %}
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Acciones</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              {% for material in materiales %}
+              <tr>
+                  <th scope="row">{{material.id}}</th>
+                  <td>{{material.nombre}}</td>
+                  <td>{{material.descripcion}}</td>
+                  <td>
+                    <a href="/materiales/update/{{material.id}}" class="btn btn-success">Actualizar</a>
+                    <a href="/materiales/delete/{{material.id}}" class="btn btn-danger confirmation">Eliminar</a>
+                  </td>
+
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+    {% else%}
+        <h1>No hay Materiales creados!</h1>
+    {% endif %}
+    
+  </div>
+</div>
+{% endblock %}
